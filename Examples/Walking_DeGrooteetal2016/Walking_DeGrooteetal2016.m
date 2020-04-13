@@ -1,16 +1,18 @@
 clear all;close all;clc
 
+import org.opensim.modeling.*      % Import OpenSim Libraries
+
 %% Choose optimization framework
-% framework = 'GPOPS';
-framework = 'CasADi';
+framework = 'GPOPS';
+% framework = 'CasADi';
 
 %% Choose contraction dynamics formulation
 % formulation_contdyn = 'lMtildeState';
 formulation_contdyn = 'FtildeState';
 
 %% Choose activation dynamics formulation
-% formulation_actdyn = 'DeGroote2016';
-formulation_actdyn = 'DeGroote2009';
+formulation_actdyn = 'DeGroote2016';
+% formulation_actdyn = 'DeGroote2009';
 
 %% Example
 % Add main folder and subfolder to matlab path (installation)
@@ -24,7 +26,7 @@ addpath(genpath(MainDir));
 IK_path=fullfile(MainDir,'Examples','Walking_DeGrooteetal2016','WalkingData','Walking_IK.mot');
 ID_path=fullfile(MainDir,'Examples','Walking_DeGrooteetal2016','WalkingData','Walking_ID.sto');
 model_path=fullfile(MainDir,'Examples','Walking_DeGrooteetal2016','WalkingData','subject1.osim');
-time=[0.516 1.95]; % Right stance phase (+50ms beginning and end of time interval, more details see manual and publication)
+time=[0.5167 1.95]; % Right stance phase (+50ms beginning and end of time interval, more details see manual and publication)
 Out_path=fullfile(MainDir,'Examples','Walking_DeGrooteetal2016','Results');
 
 Misc.DofNames_Input={'ankle_angle_r','knee_angle_r','hip_flexion_r','hip_rotation_r','hip_adduction_r'};

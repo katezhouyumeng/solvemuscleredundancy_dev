@@ -1,5 +1,8 @@
 clear all;close all;clc
 
+import org.opensim.modeling.*      % Import OpenSim Libraries
+
+
 %% Choose optimization framework
 % framework = 'GPOPS';
 framework = 'CasADi';

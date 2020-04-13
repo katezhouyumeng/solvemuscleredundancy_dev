@@ -39,8 +39,10 @@ for i=1:length(Misc.DofNames_Input)
         dM_temp=nan(nfr,length(Misc.DofNames_Input),length(Misc.MuscleNames));    % pre-allocate moment arms
         
         % read indexes in time frame for muscle analysis
-        t_Mus=dm_Data_temp.data(:,1);           t_Mus=round(t_Mus*10000)/10000;
-        ind0=find(t_Mus>=Misc.time(1),1,'first'); ind_end=find(t_Mus<=Misc.time(2),1,'last');
+        t_Mus=dm_Data_temp.data(:,1);           
+%         t_Mus=round(t_Mus*10000)/10000;   % KZ EDIT: commented out, why
+%         do this
+        ind0=find(round(t_Mus)>=Misc.time(1),1,'first'); ind_end=find(t_Mus<=Misc.time(2),1,'last');
         Mus_inds=ind0:ind_end;
     end
     
@@ -108,7 +110,8 @@ end
 % select the IK information between the selected time frames
 t_IK=IK_data.data(:,1);     t_IK=round(t_IK*10000)/10000; 
 ind0=find(t_IK>=Misc.time(1),1,'first'); ind_end=find(t_IK<=Misc.time(2),1,'last');
-IK_inds=ind0:ind_end;
+% IK_inds=ind0:ind_end;     % KZ EDIt
+IK_inds = Mus_inds;
 
 % filter the kinematics and kinetics
 fs=1/mean(diff(t_IK));
@@ -146,7 +149,9 @@ end
 ID_data_int=interp1(ID_data.data(:,1),ID_data.data,IK_data.data(:,1));       % interpolate data for IK sampling frequency
 t_ID=ID_data_int(:,1); t_ID=round(t_ID*10000)/10000;
 ind0=find(t_ID>=Misc.time(1),1,'first'); ind_end=find(t_ID<=Misc.time(2),1,'last');
-ID_inds=ind0:ind_end;
+% ID_inds=ind0:ind_end;     % KZ EDITS
+
+ID_inds = Mus_inds; 
 
 %% store the data
 DatStore.T_exp = ID_data_int(ID_inds,ID_Header_inds);
